@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  server:
+    build: ./Servidor
+    container_name: chat-server
+    ports:
+      - "8080:8080"
+    networks:
+      - chatnet
+
+  client:
+    build: ./Clientes
+    container_name: chat-client
+    stdin_open: true
+    tty: true
+    networks:
+      - chatnet
+    depends_on:
+      - server
+
+networks:
+  chatnet:
+    driver: bridge
